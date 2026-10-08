@@ -5,7 +5,7 @@ recursive-include examples *.py *.md
 recursive-include tests *.py *.json
 recursive-include benchmarks *.py *.json *.csv
 recursive-include scripts *.py
-recursive-include .github *.md
+recursive-include .github *.md *.yml *.py *.ini
 global-exclude *.pyc *.pyo .DS_Store Thumbs.db
 prune .git
 prune .venv

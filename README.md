@@ -35,14 +35,15 @@ see [input conventions](docs/GETTING_STARTED.md#input-conventions).
 
 ## Installation
 
-The planned PyPI installation command is:
+Install FEATM from PyPI:
 
 ```bash
-python -m pip install featm
+pip install featm
 ```
 
-This preparation does not assert that v0.5.7 is already published. Use
-[local distribution testing](docs/RELEASE_TESTING.md) before publication.
+During initial release testing, GitHub remains private; see the
+[repository-access note](docs/INSTALLATION.md#initial-publication-period).
+
 The quickstart needs only base dependencies: NumPy, pandas and psutil.
 For checkpoints, Parquet, Arrow or disk-backed output, install the IO extra:
 

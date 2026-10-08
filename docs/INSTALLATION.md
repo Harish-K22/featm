@@ -5,7 +5,7 @@ methods. Base dependencies are numpy>=1.24, pandas>=2.0 and psutil>=5.9.
 
 ## Installation and development
 
-After PyPI publication:
+Install from PyPI:
 
 ```bash
 python -m pip install "featm==0.5.7"
@@ -13,10 +13,19 @@ python -m pip install "featm[io]==0.5.7"
 python -m pip install "featm[distributed,io]==0.5.7"
 ```
 
-No publication is performed or asserted by this staging task. For testing
-supplied distributions before publication, see [release testing](RELEASE_TESTING.md).
+For local wheel and sdist checks, see [release testing](RELEASE_TESTING.md).
 For a checkout, see [contributing](../CONTRIBUTING.md). Double-quoted requirements
 work in PowerShell and POSIX shells; they keep extra brackets a single argument.
+
+## Initial publication period
+
+The owner plans to keep GitHub private for approximately 3–5 days after the
+first PyPI publication. Once published, the wheel and source distribution are
+publicly downloadable, including their package code; this is a public PyPI
+release. GitHub repository, issue and documentation links require access until
+the owner separately approves making the repository public. Documentation and
+examples are included in the source distribution. PyPI publication is not
+confirmed by these preparation instructions.
 
 ## Extras from the actual v0.5.7 metadata
 

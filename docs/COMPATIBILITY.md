@@ -40,7 +40,5 @@ The accepted and final checks used actual hardware, CPU/GPU comparisons and
 declared numerical tolerances. These do not certify every driver/device/CUDA
 combination. Node2vec's NumPy-1 stack cannot share the CuPy-14 NumPy-2 setup.
 
-Independent release audits are retained by the owner; no public audit archive
-URL is established here. Public release artifacts will be rebuilt and checked
-separately after documentation approval, rather than reusing old hashes for
-changed README/LICENSE/metadata contents.
+Compatibility claims above describe the accepted release audit scope. They do
+not establish support for other platforms, backends or input configurations.
