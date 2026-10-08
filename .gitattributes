@@ -1,0 +1,9 @@
+# Preserve audited product/test bytes, including existing line endings.
+* -text
+*.md text eol=lf
+*.toml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+LICENSE text eol=lf
+src/featm/** -text
+tests/** -text
