@@ -5,22 +5,22 @@ from pathlib import Path
 root=Path(__file__).resolve().parents[2]
 dist=Path(sys.argv[1]).resolve()
 p=tomllib.loads((root/'pyproject.toml').read_text(encoding='utf-8'))['project']
-assert p['name']=='featm' and p['version']=='0.5.7'
-expected={'featm-0.5.7-py3-none-any.whl','featm-0.5.7.tar.gz'}
+assert p['name']=='featm' and p['version']=='0.5.8'
+expected={'featm-0.5.8-py3-none-any.whl','featm-0.5.8.tar.gz'}
 assert {f.name for f in dist.iterdir()}==expected
-with zipfile.ZipFile(dist/'featm-0.5.7-py3-none-any.whl') as w,tarfile.open(dist/'featm-0.5.7.tar.gz') as t:
- m=email.message_from_string(w.read('featm-0.5.7.dist-info/METADATA').decode('utf-8'))
- s=email.message_from_string(t.extractfile('featm-0.5.7/PKG-INFO').read().decode('utf-8'))
- assert m['Name']==s['Name']=='featm' and m['Version']==s['Version']=='0.5.7'
+with zipfile.ZipFile(dist/'featm-0.5.8-py3-none-any.whl') as w,tarfile.open(dist/'featm-0.5.8.tar.gz') as t:
+ m=email.message_from_string(w.read('featm-0.5.8.dist-info/METADATA').decode('utf-8'))
+ s=email.message_from_string(t.extractfile('featm-0.5.8/PKG-INFO').read().decode('utf-8'))
+ assert m['Name']==s['Name']=='featm' and m['Version']==s['Version']=='0.5.8'
  assert m.get_all('Requires-Dist')==s.get_all('Requires-Dist')
  assert m['Requires-Python']==s['Requires-Python']==p['requires-python']
  assert m.get_payload().replace('\r\n','\n').strip()==(root/'README.md').read_text(encoding='utf-8').strip()
  licenses=[n for n in w.namelist() if n.endswith('/LICENSE')]
  assert len(licenses)==1 and w.read(licenses[0])==(root/'LICENSE').read_bytes()
- assert t.extractfile('featm-0.5.7/LICENSE').read()==(root/'LICENSE').read_bytes()
+ assert t.extractfile('featm-0.5.8/LICENSE').read()==(root/'LICENSE').read_bytes()
  names={x.relative_to(root/'src').as_posix() for x in (root/'src/featm').rglob('*.py')}
  assert len(names)==77 and names=={n for n in w.namelist() if n.startswith('featm/') and n.endswith('.py')}
  for n in names:
-  assert w.read(n)==t.extractfile('featm-0.5.7/src/'+n).read()==(root/'src'/n).read_bytes()
+  assert w.read(n)==t.extractfile('featm-0.5.8/src/'+n).read()==(root/'src'/n).read_bytes()
 print('PASS: version, metadata, README, license and 77 product files')
 (root/'release-artifact-hashes.json').write_text(json.dumps({f.name:{'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'bytes':f.stat().st_size} for f in sorted(dist.iterdir())},indent=2))

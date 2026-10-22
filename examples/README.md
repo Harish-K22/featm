@@ -12,7 +12,7 @@ They do not add `src/` to Python's import path and do not download data/models.
 | Synthetic grayscale image / local prepared array | vision | `python examples/image_features.py` |
 
 Install extras with quoted requirements, for example
-`python -m pip install "featm[audio]==0.5.7"` after publication, or use
-the supplied distributions as described in [release testing](../docs/RELEASE_TESTING.md). Read
+`python -m pip install "featm[audio]"`, or use
+a local wheel or sdist as described in [release testing](../docs/RELEASE_TESTING.md). Read
 [dataset recipes](../docs/PRACTICAL_EXAMPLES.md) before using real data.
 Synthetic validations do not establish benchmark scores on those datasets.

@@ -8,7 +8,7 @@ For CUDA/Dask, include device/runtime or worker configuration. Remove credential
 and personal data; prefer synthetic inputs over private datasets.
 
 The owner-confirmed repository is [https://github.com/Harish-K22/featm](https://github.com/Harish-K22/featm).
-Use its [issue tracker](https://github.com/Harish-K22/featm/issues) when available; no private contact
+Use its [issue tracker](https://github.com/Harish-K22/featm/issues); no private contact
 address or repository visibility is assumed by these instructions.
 
 ## Development setup

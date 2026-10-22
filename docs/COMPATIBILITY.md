@@ -1,4 +1,7 @@
-# FEATM v0.5.7 compatibility
+# FEATM compatibility
+
+Version 0.5.8 changes documentation and the version marker only; the
+v0.5.7 certification scope below is retained, not expanded.
 
 The dependency policy is unchanged from the accepted v0.5.6 Step 5.5C
 certification. The v0.5.7 product delta is fail-closed checkpoint JSON-root

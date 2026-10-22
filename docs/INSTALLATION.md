@@ -8,26 +8,16 @@ methods. Base dependencies are numpy>=1.24, pandas>=2.0 and psutil>=5.9.
 Install from PyPI:
 
 ```bash
-python -m pip install "featm==0.5.7"
-python -m pip install "featm[io]==0.5.7"
-python -m pip install "featm[distributed,io]==0.5.7"
+python -m pip install "featm"
+python -m pip install "featm[io]"
+python -m pip install "featm[distributed,io]"
 ```
 
 For local wheel and sdist checks, see [release testing](RELEASE_TESTING.md).
 For a checkout, see [contributing](../CONTRIBUTING.md). Double-quoted requirements
 work in PowerShell and POSIX shells; they keep extra brackets a single argument.
 
-## Initial publication period
-
-The owner plans to keep GitHub private for approximately 3–5 days after the
-first PyPI publication. Once published, the wheel and source distribution are
-publicly downloadable, including their package code; this is a public PyPI
-release. GitHub repository, issue and documentation links require access until
-the owner separately approves making the repository public. Documentation and
-examples are included in the source distribution. PyPI publication is not
-confirmed by these preparation instructions.
-
-## Extras from the actual v0.5.7 metadata
+## Optional extras
 
 | Extra | Purpose / boundary | Declared requirements |
 | --- | --- | --- |
@@ -57,13 +47,13 @@ base interpreter. See [compatibility](COMPATIBILITY.md) for tested scopes.
 `full` includes feature stacks but excludes IO, Dask, CUDA and node2vec. It
 includes gensim-backed text, so do not assume universal Python 3.14 usability.
 
-For node2vec use `python -m pip install "featm[graph,graph-node2vec]==0.5.7"`
+For node2vec use `python -m pip install "featm[graph,graph-node2vec]"`
 on certified Python 3.10–3.12. Its NumPy-1 restriction conflicts with CuPy 14's
 NumPy-2 stack; use separate environments for those workloads.
 
 ## GPU
 
-`python -m pip install "featm[gpu]==0.5.7"` requests
+`python -m pip install "featm[gpu]"` requests
 `cupy-cuda12x[ctk]>=14.0`. Toolkit components are included; a compatible NVIDIA
 driver and GPU are still required. See the
 [CuPy installation guide](https://docs.cupy.dev/en/stable/install.html).

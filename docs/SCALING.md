@@ -1,6 +1,6 @@
 # Larger data and checkpointing
 
-Install `"featm[io]==0.5.7"` for Parquet/Arrow sources, checkpoints and
+Install `"featm[io]"` for Parquet/Arrow sources, checkpoints and
 disk-backed output. Checkpointing needs IO even with an in-memory DataFrame.
 The base package rejects that operation with an installation hint before
 scanning; it remains usable for unrelated base features.

@@ -1,6 +1,6 @@
-# Distributed extraction with Dask (v0.5.7)
+# Distributed extraction with Dask (v0.5.8)
 
-Install `"featm[distributed,io]==0.5.7"` for Dask with checkpoint/Parquet IO.
+Install `"featm[distributed,io]"` for Dask with checkpoint/Parquet IO.
 Ordinary imports do not eagerly require Dask. CPU/GPU is a separate choice
 inside each worker; installing Dask does not install CUDA or certify a new GPU.
 

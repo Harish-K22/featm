@@ -2,7 +2,7 @@
 
 Begin with the [README quickstart](../README.md#quickstart) and
 [base installation](INSTALLATION.md). All beginner snippets below use
-`errors="raise"` and the base package.
+`errors="raise"` and the base package; optional texture methods are identified separately.
 
 ## Input conventions
 
@@ -41,6 +41,40 @@ sample/channel conventions. Structured pairs or dictionaries may be required
 for cross-series and multimodal methods. Start with the feature's metadata and
 the [catalogue](FEATURE_UNIVERSE.md), then its implementation docstring when
 the metadata does not describe a parameter fully.
+
+## Image inputs
+
+For these image methods, inputs represent **batches**, including when there is
+only one image. A raw `(H, W, 3)` RGB array can be interpreted as a batch along
+its first axis. Do not rely on channel-count inference to identify a sample.
+
+| Input | Correct extraction shape |
+| --- | --- |
+| One grayscale `(H, W)` image | `gray[None, ...]` → `(1, H, W)` |
+| One RGB `(H, W, 3)` image | `rgb[None, ...]` → `(1, H, W, 3)` |
+| RGB batch | `(N, H, W, 3)` |
+
+```python
+import numpy as np
+import featm
+
+rgb = np.arange(4 * 5 * 3, dtype=float).reshape(4, 5, 3)
+gray = rgb.mean(axis=-1)
+names = ["image.intensity.mean"]
+for batch in (rgb[None, ...], gray[None, ...]):
+    out = featm.extract(batch, features=names, errors="raise")
+    assert out.shape == (1, 1)
+    np.testing.assert_allclose(out.iloc[0, 0], rgb.mean())
+many = featm.extract(np.stack([rgb, rgb + 1]), features=names, errors="raise")
+assert many.shape == (2, 1)
+np.testing.assert_allclose(many.to_numpy().ravel(), [rgb.mean(), rgb.mean() + 1])
+```
+
+Mean intensity needs no vision extra. For optional HOG/GLCM/LBP methods, install
+`python -m pip install "featm[vision]"` and follow the selected method's color,
+grayscale and parameter requirements. The [image example](../examples/image_features.py)
+uses an explicit grayscale batch for texture methods. Image conventions do not
+change the time-series shapes above; semantics are modality-specific.
 
 ## Multiple families
 

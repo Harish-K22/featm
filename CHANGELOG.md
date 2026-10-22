@@ -1,5 +1,18 @@
 # Release notes
 
+## 0.5.8 — documentation and package metadata
+
+Documentation and package metadata improvements for the public GitHub launch.
+
+- Shared GitHub/PyPI README uses absolute links to real documentation paths.
+- Removed obsolete private-repository and first-upload preparation notices.
+- Clarified RGB/grayscale batch shapes, optional vision backends, error policy
+  and trusted fitted-state loading, with executable examples.
+- Updated release-only OIDC workflow for v0.5.8 from a public repository;
+  retained owner/repository identity and approved-commit checks.
+- No feature, runtime dependency, API or performance changes. Inventory remains
+  552 features / 18 modalities / 182 groups / 7 stateful / 22 GPU-capable.
+
 ## 0.5.7 — initial public release
 
 FEATM offers a searchable registry for explicit, named feature extraction

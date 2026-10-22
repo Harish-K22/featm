@@ -1,11 +1,11 @@
 # Local distribution testing
 
-Public installation instructions apply after publication. To check a supplied
-v0.5.7 distribution before publication, create a separate virtual environment
+For the published package, use `pip install featm`. To check a local candidate
+distribution, create a separate virtual environment
 outside the source checkout and install the wheel from its directory:
 
 ```bash
-python -m pip install "./featm-0.5.7-py3-none-any.whl"
+python -m pip install "./featm-0.5.8-py3-none-any.whl"
 python -m pip check
 python -c "import featm; print(featm.__version__, featm.__file__)"
 ```
@@ -13,13 +13,13 @@ python -c "import featm; print(featm.__version__, featm.__file__)"
 For IO/checkpoint examples:
 
 ```bash
-python -m pip install "./featm-0.5.7-py3-none-any.whl[io]"
+python -m pip install "./featm-0.5.8-py3-none-any.whl[io]"
 ```
 
 Independently test the source distribution in another environment:
 
 ```bash
-python -m pip install "./featm-0.5.7.tar.gz"
+python -m pip install "./featm-0.5.8.tar.gz"
 ```
 
 Imports must resolve to the installed site-packages, never an editable source
