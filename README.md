@@ -210,3 +210,6 @@ problems using the [issue tracker](https://github.com/Harish-K22/featm/issues).
 FEATM's own code is distributed under the [MIT License](https://github.com/Harish-K22/featm/blob/main/LICENSE),
 Copyright (c) 2026 Harish K. Optional dependencies, datasets and external models
 retain their own terms. See [third-party scope](https://github.com/Harish-K22/featm/blob/main/THIRD_PARTY_NOTICES.md).
+
+For dependency declarations, parameter discovery and numerical conventions, see
+[feature metadata](https://github.com/Harish-K22/featm/blob/main/docs/FEATURE_METADATA.md).

@@ -1,5 +1,17 @@
 # Release notes
 
+## 0.5.9 — dependency metadata and feature descriptions
+
+- Correct 52 optional-dependency declarations using implementation/helper evidence;
+  document six conditional GUDHI/SciPy alternatives without eager enforcement.
+- Add narrow installation hints for declared missing root modules in in-memory
+  extraction and created callables, preserving error policies and exception details.
+- Improve 50 reviewed descriptions, including six conditional-dependency notes;
+  document parameter discovery and numerical conventions. Algorithms are unchanged.
+- Add deterministic metadata/dependency regressions and numerical parity evidence;
+  prepare the version-specific release guard for independent review. No publication.
+
+
 ## 0.5.8 — documentation and package metadata
 
 Documentation and package metadata improvements for the public GitHub launch.

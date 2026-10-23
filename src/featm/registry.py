@@ -577,7 +577,8 @@ def register_feature(**kwargs: Any):
     """Decorator used by built-ins and plugins to register one selectable feature."""
 
     def deco(func: Callable[..., Any]):
-        spec = FeatureSpec(implementation=func, **kwargs)
+        from ._metadata import builtin_metadata
+        spec = FeatureSpec(implementation=func, **builtin_metadata(func, kwargs))
         REGISTRY.register(spec)
         return func
 
@@ -586,5 +587,6 @@ def register_feature(**kwargs: Any):
 
 def register_callable(func: Callable[..., Any], **kwargs: Any) -> FeatureSpec:
     """Programmatic equivalent of :func:`register_feature` for feature factories."""
-    spec = FeatureSpec(implementation=func, **kwargs)
+    from ._metadata import builtin_metadata
+    spec = FeatureSpec(implementation=func, **builtin_metadata(func, kwargs))
     return REGISTRY.register(spec)
