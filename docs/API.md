@@ -25,6 +25,9 @@ print(spec.description, spec.input_types, spec.requires)
 print(inspect.signature(feature))
 ```
 
+See [Feature metadata and optional dependencies](FEATURE_METADATA.md) for requirement
+semantics, fixed helper defaults, numerical conventions and current limitations.
+
 ## Extraction and fitted state
 
 `create_feature(name, **params)` creates the named callable; its return shape

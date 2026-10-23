@@ -426,6 +426,8 @@ def extract(
                         )
                     outputs[col] = values
             except Exception as exc:
+                from ._dependency_errors import annotate_missing_dependency
+                annotate_missing_dependency(spec, exc)
                 failures[spec.name] = f"{type(exc).__name__}: {exc}"
                 if errors == "raise":
                     raise
@@ -456,7 +458,12 @@ class CreatedFeature:
         validate_params(self.spec, call_params)
         if self.spec.implementation is None:
             raise RuntimeError(f"Feature has no implementation: {self.spec.name}")
-        result = self.spec.implementation(X, **call_params)
+        try:
+            result = self.spec.implementation(X, **call_params)
+        except ModuleNotFoundError as exc:
+            from ._dependency_errors import annotate_missing_dependency
+            annotate_missing_dependency(self.spec, exc)
+            raise
         if self.spec.modality == 'tabular' and isinstance(result, tuple) and len(result) == 2:
             return result[0]
         return result
