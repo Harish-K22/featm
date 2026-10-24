@@ -1,5 +1,11 @@
 # Release notes
 
+## 0.5.11 — documentation and feature descriptions
+
+- Correct compatibility history without expanding certification and make feature-authoring examples self-contained or explicitly schematic.
+- Replace 483 identifier-only descriptions and expand six dependency-only topology descriptions using implementation evidence across all 18 modalities. Preserve the prior 44 semantic descriptions and conditional dependency explanations.
+- Preserve all feature identifiers, dependency declarations and numerical implementations; add description-quality and documentation regression checks.
+
 ## 0.5.10 — recurrence dependency metadata
 
 - Declare SciPy for recurrence rate, determinism, laminarity and trapping time.

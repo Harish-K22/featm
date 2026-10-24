@@ -29,10 +29,12 @@ For sample-oriented modalities, the first dimension should represent independent
 
 ## Fixed-vector feature
 
-Use `FeatureOutput` when one selectable feature naturally produces several dimensions:
+Use `FeatureOutput` when one selectable feature naturally produces several dimensions.
+This complete example computes three intensity summaries for a batch of grayscale images:
 
 ```python
-from featm import FeatureOutput
+import numpy as np
+from featm import Cost, FeatureOutput, register_feature
 
 @register_feature(
     name="example.vector_descriptor",
@@ -42,7 +44,8 @@ from featm import FeatureOutput
     cost=Cost.LOW,
 )
 def descriptor(images):
-    values = ...  # shape (n_images, 3)
+    images = np.asarray(images, dtype=float)  # shape (n_images, height, width)
+    values = np.column_stack([images.mean((1, 2)), images.min((1, 2)), images.max((1, 2))])
     return FeatureOutput(values, names=("a", "b", "c"))
 ```
 
@@ -56,9 +59,12 @@ example.vector_descriptor__c
 
 ## Tabular compatibility features
 
-The legacy tabular planner expects registered tabular transforms to follow its fit/state calling convention:
+The legacy tabular planner expects registered tabular transforms to follow its fit/state calling convention.
+This is a schematic interface; replace the placeholder before executing it:
 
 ```python
+from featm import register_feature
+
 @register_feature(
     name="tabular.numeric.example",
     modality="tabular",
@@ -76,6 +82,9 @@ New non-tabular registry features do not need those keyword arguments.
 ## Optional dependencies
 
 Do not import heavy optional packages at top-level module import time. Import them inside the selected feature and raise a concise installation hint if unavailable.
+
+This optional-import snippet is schematic: `some_optional_library` and the
+feature body are placeholders.
 
 ```python
 def feature(X):
@@ -273,17 +282,24 @@ per-batch-local statistics instead of one global fit) rather than produce a
 wrong answer.
 
 **Step 2 stateful protocol** (`stateful=True`): implement
-`featm.state.StatefulEncoder` --
+`featm.state.StatefulEncoder`. This schematic class shows lifecycle signatures;
+the `...` bodies do not implement a working encoder. `merge_states` is needed
+only when supporting distributed fitting:
 
 ```python
+from featm.state import StatefulEncoder
+
 class MyEncoder(StatefulEncoder):
     def init_state(self, *, state_budget_bytes=None, spill_dir=None, params=None): ...  # fresh, empty accumulator
-    def update_state(self, state, batch, *, params=None): ...  # MERGE batch into state (associative/commutative)
+    def update_state(self, state, batch, *, params=None): ...  # fold the next batch into the accumulator
+    def merge_states(self, left, right, *, params=None): ...  # distributed fitting: preserve partition order
     def finalize_state(self, state, *, params=None): ...  # freeze accumulator -> transform-ready state (default: identity)
     def transform_batch(self, batch, state, *, params=None): ...  # apply frozen state; never mutate it
 ```
 
-`update_state` must be a genuine merge (see `ZScoreEncoder`'s Welford/Chan
+`update_state` must accumulate batches; distributed `merge_states` must combine
+partial accumulators in source partition order (not every encoder is commutative).
+Use the existing implementations as references (see `ZScoreEncoder`'s Welford/Chan
 combination, `MinMaxEncoder`'s running extrema, `FrequencyEncoder`'s summed
 counts, and the text corpus-statistics encoders' mergeable term/document-
 frequency accumulator -- `SurprisalEncoder`/`Bm25Encoder`/`TfidfEncoder`/
@@ -301,9 +317,14 @@ per-item average -- Finding 11, fourth audit pass) -- raise
 `featm.state.StateBudgetExceededError` before silently exceeding it, never
 after. Register it with the existing `register_feature` decorator, wrapped
 via `featm.state._stateful_adapter` so the *same* encoder also works as a
-plain single-shot feature on the small-data path:
+plain single-shot feature on the small-data path. This registration fragment
+assumes the schematic `MyEncoder` above has been fully implemented;
+`_stateful_adapter` is an internal integration helper, not a separate public API:
 
 ```python
+from featm import register_feature
+from featm.state import _stateful_adapter
+
 register_feature(
     name="tabular.scaling.my_thing", family="scaling", modality="tabular",
     input_types=("numeric",), stateful=True, incremental=True, streamable=True,

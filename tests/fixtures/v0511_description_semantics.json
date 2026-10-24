@@ -1,0 +1,20 @@
+{
+  "audio.waveform.dynamic_range": "20*log10((95th percentile absolute amplitude+1e-12)/(10th percentile+1e-12)) per mono waveform; an amplitude-relative percentile range in decibels.",
+  "event.timing.event_rate": "(event count-1)/(last-first time) per event sequence; returns zero with fewer than two events or nonpositive span. Lists are sorted; a bare 1D ndarray is not.",
+  "geometry.distances.euclidean": "Euclidean distance of each point from the whole point set's centroid, in coordinate units; no reference-point parameter.",
+  "graph.cycles.cycle_count": "Number of cycles in NetworkX's undirected cycle basis, rather than a count of every simple cycle.",
+  "image.color.red_mean": "NaN-ignoring spatial mean of channel 0 per image; grayscale input uses its intensity mean, channels are not rescaled.",
+  "information.entropy.shannon": "Shannon entropy in nats per probability/count row after clipping negatives to zero and sum normalization; all-zero rows yield zero.",
+  "manifold.dimension.intrinsic_dimension": "Median of the local neighbor-distance dimension estimates, repeated for every point; forwards k=10 to the local estimator.",
+  "matrix.algebra.sparsity": "Fraction of matrix entries close to zero under NumPy isclose defaults, rather than the fraction exactly equal to zero.",
+  "multimodal.fusion.late_fusion": "Weighted sum of two supplied embedding rows truncated to their common width; weights default to (0.5,0.5), with no weight normalization.",
+  "pointcloud.geometry.bbox_volume": "Product of coordinate-wise ranges in each cloud: axis-aligned bounding-box hypervolume, with zero for any zero-span axis.",
+  "sequence.entropy.shannon": "Shannon entropy in nats of empirical token counts per sequence; string tokens are characters, and empty input has entropy zero.",
+  "signal.frequency.psd": "First n_bins=16 available squared centered real-FFT magnitudes per row, DC forced zero; unnormalized power bins, not Welch density.",
+  "spatial.hotspots.getis_ord": "Mean supplied value over each point's symmetric binary k=8 neighbor set; a local neighbor average, not a standardized Getis-Ord significance score.",
+  "tabular.interactions.logical": "AND, OR and XOR after testing each numeric-coerced value !=0; three float flags per row, NaN compares unequal to zero and is treated as true.",
+  "text.lexical.word_count": "Count of lowercase Unicode regex word tokens per document; tokenizer retains word characters, apostrophes and hyphens within word boundaries.",
+  "timeseries.recurrence.recurrence_rate": "Fraction of true entries in the recurrence matrix after diagonal removal, denominator includes all matrix cells; fixed 2D delay-1 embedding, finite rows, at most 600 points, 10th-percentile positive-distance threshold.",
+  "topology.persistence.image": "Histogram of positive H0 MST death lengths, weighted by those same lengths, with bins=16 spanning zero to maximum death; at most 400 points, not a Gaussian persistence image.",
+  "video.motion.frame_difference_energy": "Mean squared grayscale difference between adjacent frames over all pixels and frame pairs; one value per clip, not divided by elapsed time."
+}
