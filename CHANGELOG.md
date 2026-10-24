@@ -1,5 +1,14 @@
 # Release notes
 
+## 0.5.10 — recurrence dependency metadata
+
+- Declare SciPy for recurrence rate, determinism, laminarity and trapping time.
+- Reuse existing optional-dependency hints so ordinary missing-SciPy failures
+  identify `featm[scientific]`; SciPy remains optional for the base installation.
+- Add focused published-v0.5.9 numerical parity and error-policy regressions.
+  Algorithms, defaults, shapes and short-input early returns are unchanged.
+
+
 ## 0.5.9 — dependency metadata and feature descriptions
 
 - Correct 52 optional-dependency declarations using implementation/helper evidence;

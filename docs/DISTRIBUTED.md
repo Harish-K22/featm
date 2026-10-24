@@ -1,4 +1,4 @@
-# Distributed extraction with Dask (v0.5.9)
+# Distributed extraction with Dask (v0.5.10)
 
 Install `"featm[distributed,io]"` for Dask with checkpoint/Parquet IO.
 Ordinary imports do not eagerly require Dask. CPU/GPU is a separate choice
