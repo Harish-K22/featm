@@ -69,8 +69,12 @@ entropy uses uncentered power, whereas centroid/dominant-frequency use a centere
 spectrum. Sample entropy's zero-match conventions are implementation-specific.
 Image statistics accept (N,H,W) or (N,H,W,C): add a batch axis to a single RGB image.
 
-Many catalogue descriptions still repeat identifiers; this maintenance release
-improves a reviewed subset, not the complete mathematical documentation. Accepted
+The v0.5.11 source review replaces all 483 identifier-only descriptions and
+adds computation semantics to six topology entries that previously documented
+only conditional dependencies. All 18 modalities were reviewed; the 44 earlier
+reviewed semantic descriptions are retained. Descriptions explain the current
+implementation, including proxies, user-model adapters and unavailable PCL
+registrations; they do not certify every optional backend or parameter path. Accepted
 ranges, exact vector dimensions and conditional requirements are not yet a complete
 structured schema. Search still matches names/descriptions/tags without ranking
 or typo correction. No algorithm, input contract, or execution routing was changed.

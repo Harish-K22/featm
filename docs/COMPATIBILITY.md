@@ -1,7 +1,11 @@
 # FEATM compatibility
 
-Version 0.5.8 changes documentation and the version marker only; the
-v0.5.7 certification scope below is retained, not expanded.
+v0.5.7 established the documented compatibility certification baseline.
+v0.5.8 improved documentation and packaging metadata; v0.5.9 corrected
+dependency metadata and improved selected descriptions; v0.5.10 corrected
+four recurrence-feature SciPy declarations. v0.5.11 improves documentation
+and catalogue descriptions without expanding that certification scope.
+The historical evidence, matrix and limitations below remain applicable.
 
 The dependency policy is unchanged from the accepted v0.5.6 Step 5.5C
 certification. The v0.5.7 product delta is fail-closed checkpoint JSON-root
