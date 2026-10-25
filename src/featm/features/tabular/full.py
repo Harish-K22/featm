@@ -11,13 +11,14 @@ from ...registry import Cost, FeatureOutput, REGISTRY, register_feature
 from .._utils import discrete_entropy
 
 
-def _reg(name, *, family, input_types=("numeric",), arity=1, cost=Cost.TINY, tags=(), description="", output_kind="scalar", incremental=False):
+def _reg(name, *, family, input_types=("numeric",), arity=1, cost=Cost.TINY, tags=(), description="", output_kind="scalar", incremental=False, stateful=False):
     def deco(fn):
         if name in {s.name for s in REGISTRY.all()}:
             return fn
         return register_feature(
             name=name, family=family, modality="tabular", input_types=input_types,
             arity=arity, cost=cost, streamable=not incremental, incremental=incremental,
+            stateful=stateful,
             description=description or name, tags=tags, output_kind=output_kind,
         )(fn)
     return deco
@@ -245,7 +246,7 @@ for _typ in ("numeric","categorical"):
 @_reg("tabular.missingness.co_missingness",family="missingness",input_types=("numeric","numeric"),arity=2,tags=("missingness","pairwise"))
 def co_missing(a,b,*,fit=False,state=None): return (pd.Series(a).isna() & pd.Series(b).isna()).astype(float),None
 
-@_reg("tabular.missingness.entropy",family="missingness",input_types=("numeric",),tags=("missingness","entropy"))
+@_reg("tabular.missingness.entropy",family="missingness",input_types=("numeric",),tags=("missingness","entropy"),stateful=True)
 def miss_entropy(s,*,fit=False,state=None):
     m=pd.Series(s).isna().to_numpy(); p=m.mean(); h=0.0 if p in (0,1) else -(p*np.log(p)+(1-p)*np.log(1-p)); return pd.Series(h,index=pd.Series(s).index),None
 

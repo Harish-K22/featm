@@ -1,8 +1,8 @@
 # Advanced execution reference
 
 This complements [scaling](SCALING.md), [Dask](DISTRIBUTED.md) and
-[public API guidance](API.md). It describes the unchanged audited v0.5.7
-implementation; it does not introduce new supported algorithms or platforms.
+[public API guidance](API.md). It describes the audited execution model and
+the v0.5.11 missingness-entropy correction without expanding platform certification.
 
 ## Batch safety and input contracts
 
@@ -37,8 +37,9 @@ properties. Do not assume any iterator can support a multi-pass workflow.
 ## State consistency and leakage
 
 Use `fit(train, ...)` then `.transform(test)` to separate training statistics
-from test samples. `extract()` fits and transforms its own source. The seven
-stateful methods include scaling, category frequencies and corpus statistics.
+from test samples. `extract()` fits and transforms its own source. The eight
+stateful methods include missingness entropy, scaling, category frequencies
+and corpus statistics.
 Distributed fitting merges states in logical source order, freezes one global
 state and applies that same state to each transform partition. Test samples do
 not enter a saved training state. Persistence must be loaded only from trusted

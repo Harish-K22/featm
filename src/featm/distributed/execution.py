@@ -307,7 +307,7 @@ def distributed_extract(
     used to validate semantics without Dask installed. ``'dask'`` is the real
     Dask Distributed adapter and requires ``featm[distributed]``.
 
-    Exact distributed stateful fits (all 7 stateful encoders), transactional
+    Exact distributed stateful fits (all registered stateful encoders), transactional
     checkpoint/resume (fit and transform phases, partition-ID-keyed,
     content-checksummed), and worker-native Parquet I/O are all implemented
     and validated against real multi-process Dask -- see

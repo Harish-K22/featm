@@ -22,7 +22,7 @@ Deliberately separates, per Section 8's explicit requirement:
     (execution="local"), for the "is Dask faster than local here" question.
 
 Benchmarks representative row-independent features (tabular, timeseries) and
-all 7 stateful features (all Source-representable via DATASET_CONTEXT_ROW_ALIGNED,
+all 8 stateful features (all Source-representable via DATASET_CONTEXT_ROW_ALIGNED,
 confirmed against the registry), across both the coordinator-streamed path (a
 plain in-memory DataFrame) and the Parquet-native path (a real .parquet file,
 so ``DaskParquetPartitionProvider`` is genuinely exercised, not simulated),
@@ -70,7 +70,7 @@ def _timeseries_df(n: int, width: int = 32) -> pd.DataFrame:
 
 
 # (feature, dataframe_builder, columns, params) -- representative
-# row-independent features plus all 7 stateful features. All 7 stateful
+# row-independent features plus all 8 stateful features. All 8 stateful
 # features are DATASET_CONTEXT_ROW_ALIGNED (confirmed against the live
 # registry, not assumed), which is Source-representable.
 CASES = [
@@ -79,6 +79,7 @@ CASES = [
     ("tabular.scaling.zscore", _tabular_df, {"tabular.scaling.zscore": "num"}, None),
     ("tabular.scaling.minmax", _tabular_df, {"tabular.scaling.minmax": "num"}, None),
     ("tabular.encoding.category_frequency", _tabular_df, {"tabular.encoding.category_frequency": "cat"}, None),
+    ("tabular.missingness.entropy", _tabular_df, {"tabular.missingness.entropy": "num"}, None),
     ("text.bm25.bm25", _text_df, {}, {"text.bm25.bm25": {"query": "feature graph"}}),
     ("text.tfidf.tfidf", _text_df, {}, None),
     ("text.information.surprisal", _text_df, {}, None),

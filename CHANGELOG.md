@@ -2,6 +2,8 @@
 
 ## 0.5.11 — documentation and feature descriptions
 
+- Safely reject existing local/distributed checkpoints that selected `tabular.missingness.entropy` before its new whole-column semantics; a targeted feature-semantic revision prevents stale output shards from being silently reused, without invalidating unrelated checkpoints.
+- Fix Issue #3: calculate `tabular.missingness.entropy` with exact, mergeable whole-column missing counts in two-pass Source and distributed extraction, so batch/partition boundaries no longer change results. This adds one stateful feature (now 8) without adding a new feature name.
 - Correct compatibility history without expanding certification and make feature-authoring examples self-contained or explicitly schematic.
 - Replace 483 identifier-only descriptions and expand six dependency-only topology descriptions using implementation evidence across all 18 modalities. Preserve the prior 44 semantic descriptions and conditional dependency explanations.
 - Preserve all feature identifiers, dependency declarations and numerical implementations; add description-quality and documentation regression checks.

@@ -55,3 +55,15 @@ Dask overhead is workload-dependent. See [scaling](SCALING.md),
 See [the execution reference](EXECUTION_REFERENCE.md) for batch safety, state
 consistency, output ordering/backpressure, checkpoint identity and committed
 progress, failure replay, materialization and operational limits.
+
+### Issue #3: missingness entropy and checkpoint reuse
+
+`tabular.missingness.entropy` now uses a two-pass, mergeable whole-column
+missingness count. Checkpoints written by the earlier batch-local implementation
+can contain incorrect output shards even when their source, feature list and
+version string appear unchanged. Local and distributed checkpoint identities
+therefore carry a semantic revision **only when this feature is selected**.
+Pre-fix checkpoints without that revision are rejected rather than silently
+resumed or migrated. Start a fresh checkpoint directory to recompute them.
+Checkpoints for unrelated feature sets remain compatible under the existing
+identity and manifest-version rules.

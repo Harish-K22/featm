@@ -222,6 +222,38 @@ class ZScoreEncoder(StatefulEncoder):
 
 
 # --------------------------------------------------------------------------
+# Missingness entropy: constant-size, exactly mergeable whole-column counts.
+# --------------------------------------------------------------------------
+class MissingnessEntropyEncoder(StatefulEncoder):
+    """Fit binary Shannon entropy of missingness over the entire source column.
+
+    Counts, unlike per-partition entropies, can be merged exactly; the frozen
+    scalar is then broadcast to every row during transform. This prevents
+    Source and distributed partition boundaries changing the answer.
+    """
+
+    def init_state(self, *, state_budget_bytes=None, spill_dir=None, params=None) -> dict:
+        return {"n": 0, "missing": 0}
+
+    def update_state(self, state: dict, batch: pd.Series, *, params=None) -> dict:
+        values = pd.Series(batch)
+        return {"n": state["n"] + len(values), "missing": state["missing"] + int(values.isna().sum())}
+
+    def merge_states(self, left: dict, right: dict, *, params=None) -> dict:
+        return {"n": left["n"] + right["n"], "missing": left["missing"] + right["missing"]}
+
+    def finalize_state(self, state: dict, *, params=None) -> dict:
+        n, missing = state["n"], state["missing"]
+        p = missing / n if n else float("nan")
+        entropy = 0.0 if p in (0.0, 1.0) else -(p * np.log(p) + (1 - p) * np.log(1 - p))
+        return {"entropy": float(entropy), "n": n, "missing": missing}
+
+    def transform_batch(self, batch: pd.Series, state: dict, *, params=None) -> pd.Series:
+        values = pd.Series(batch)
+        return pd.Series(state["entropy"], index=values.index, dtype=float)
+
+
+# --------------------------------------------------------------------------
 # Min-max: trivially mergeable running extrema.
 # --------------------------------------------------------------------------
 class MinMaxEncoder(StatefulEncoder):
@@ -746,4 +778,5 @@ STATEFUL_ENCODERS: dict[str, StatefulEncoder] = {
     "tabular.scaling.zscore": ZScoreEncoder(),
     "tabular.scaling.minmax": MinMaxEncoder(),
     "tabular.encoding.category_frequency": FrequencyEncoder(),
+    "tabular.missingness.entropy": MissingnessEntropyEncoder(),
 }

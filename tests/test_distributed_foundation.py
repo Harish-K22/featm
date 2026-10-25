@@ -69,6 +69,7 @@ def test_all_current_stateful_encoders_have_distributed_merge_equivalence():
         "tabular.scaling.zscore": (pd.Series([0., 10., 20., 30.]), {}),
         "tabular.scaling.minmax": (pd.Series([0., 10., 20., 30.]), {}),
         "tabular.encoding.category_frequency": (pd.Series(["a", "b", "a", "c"]), {}),
+        "tabular.missingness.entropy": (pd.Series([1.0, float("nan"), None, 3.0]), {}),
         "text.information.surprisal": (pd.Series(["a b", "a c", "d e", "a d"]), {}),
         "text.bm25.bm25": (pd.Series(["a b", "a c", "d e", "a d"]), {"query": "a"}),
         "text.tfidf.tfidf": (pd.Series(["a b", "a c", "d e", "a d"]), {"max_features": 8}),
