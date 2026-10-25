@@ -18,7 +18,7 @@ def test_step5_catalog_accounts_for_entire_registry():
     rows=list(catalog_rows())
     assert len(rows)==552==len(featm.REGISTRY.all())
     assert len({(r["modality"],r["family"]) for r in rows}) >= 150
-    assert sum(bool(r["stateful"]) for r in rows)==7
+    assert sum(bool(r["stateful"]) for r in rows)==8
     assert sum(bool(r["gpu_available"]) for r in rows)==22
 
 

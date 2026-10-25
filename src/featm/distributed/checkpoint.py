@@ -81,7 +81,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping
 
-from ..checkpoint import CheckpointIncompatibleError, _atomic_write_json
+from ..checkpoint import CheckpointIncompatibleError, _atomic_write_json, _attach_feature_semantic_revisions
 
 DISTRIBUTED_CHECKPOINT_MANIFEST_VERSION = 5
 MANIFEST_FILENAME = "distributed_checkpoint.json"
@@ -196,7 +196,7 @@ class DistributedCheckpointIdentity:
     state_budget_policy: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        identity = {
             "manifest_version": DISTRIBUTED_CHECKPOINT_MANIFEST_VERSION,
             "featm_version": self.featm_version,
             "source_fingerprint": self.source_fingerprint,
@@ -210,6 +210,7 @@ class DistributedCheckpointIdentity:
             "state_budget_bytes": self.state_budget_bytes,
             "state_budget_policy": self.state_budget_policy,
         }
+        return _attach_feature_semantic_revisions(identity, self.features)
 
 
 def _stream_pickle_to_temp(path: Path, obj: Any) -> Path:

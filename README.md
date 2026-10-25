@@ -138,7 +138,7 @@ with TemporaryDirectory() as directory:
 Only `train` supplies fitted statistics. Unseen category `D` maps to zero;
 transforming `test` does not refit the encoder. `extract()` fits and transforms
 its own input, so use `fit()` followed by `transform()` for a train/test split.
-There are seven stateful entries, including scaling and corpus-statistic text
+There are eight stateful entries, including missingness entropy, scaling and corpus-statistic text
 features. Only load fitted files you created or obtained from a trusted source: Python
 serialization can execute code when loading an untrusted file. See
 [stateful workflows](https://github.com/Harish-K22/featm/blob/main/docs/GETTING_STARTED.md#stateful-workflows).

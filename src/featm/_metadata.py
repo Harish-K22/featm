@@ -1041,7 +1041,8 @@ DESCRIPTIONS = {'audio.embeddings.clap': 'Audio-tower embedding from default lai
                                        'zero otherwise; two-column joint missingness indicator.',
  'tabular.missingness.entropy': "Binary Shannon entropy in nats of the column's missing fraction, "
                                 'repeated for every row; entirely present or entirely missing '
-                                'columns give zero, no fitted state.',
+                                'columns give zero. Source extraction fits mergeable '
+                                'whole-column counts before transforming batches.',
  'tabular.missingness.indicator_categorical': 'One for a pandas-missing categorical cell and zero '
                                               'otherwise; literal missing-looking strings are not '
                                               'treated as missing.',

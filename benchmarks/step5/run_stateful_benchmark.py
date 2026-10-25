@@ -9,7 +9,7 @@ does not exercise, or separately time, the REAL out-of-core two-pass
 contract (``featm.state.StatefulEncoder``: ``init_state`` ->
 ``update_state`` -> ``finalize_state`` -> ``transform_batch``) that
 ``featm.fit()``/``.transform()`` actually use. This script benchmarks that
-real contract directly, for all 7 stateful features, in three separately
+real contract directly, for all 8 stateful features, in three separately
 timed lanes:
 
   stateful_fit             -- init_state + update_state + finalize_state
@@ -55,6 +55,7 @@ FEATURES = {
     "tabular.scaling.zscore": ("numeric", None),
     "tabular.scaling.minmax": ("numeric", None),
     "tabular.encoding.category_frequency": ("categorical", None),
+    "tabular.missingness.entropy": ("numeric", None),
     "text.bm25.bm25": ("text", {"query": "feature graph kernel"}),
     "text.information.surprisal": ("text", None),
     "text.semantics.similarity": ("text", None),

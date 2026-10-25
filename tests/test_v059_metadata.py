@@ -92,7 +92,7 @@ def test_narrow_exception_annotation():
 def test_inventory_and_base_conventions():
     specs=featm.REGISTRY.all()
     assert sorted(s.name for s in specs)==EXPECTED['feature_identifiers']
-    assert [len(specs),len({s.modality for s in specs}),len({(s.modality,s.family) for s in specs}),sum(s.stateful for s in specs),sum(s.gpu_available for s in specs)]==[552,18,182,7,22]
+    assert [len(specs),len({s.modality for s in specs}),len({(s.modality,s.family) for s in specs}),sum(s.stateful for s in specs),sum(s.gpu_available for s in specs)]==[552,18,182,8,22]
     a=np.array([[1.,2.,np.nan,3.]])
     assert featm.create_feature('timeseries.statistical.mean')(a)[0]==2
     np.testing.assert_allclose(featm.create_feature('timeseries.statistical.std')(a),np.nanstd(a,axis=1))

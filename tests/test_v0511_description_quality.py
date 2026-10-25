@@ -18,7 +18,7 @@ REPRESENTATIVE = json.loads((FIXTURES/'v0511_description_semantics.json').read_t
 
 def test_catalogue_description_quality():
     specs=featm.REGISTRY.all()
-    assert [len(specs),len({s.modality for s in specs}),len({(s.modality,s.family) for s in specs}),sum(s.stateful for s in specs),sum(s.gpu_available for s in specs)]==[552,18,182,7,22]
+    assert [len(specs),len({s.modality for s in specs}),len({(s.modality,s.family) for s in specs}),sum(s.stateful for s in specs),sum(s.gpu_available for s in specs)]==[552,18,182,8,22]
     assert set(_metadata.DESCRIPTIONS)<={s.name for s in specs}
     normalize=lambda s:re.sub(r'[^a-z0-9]','',s.lower())
     for s in specs:

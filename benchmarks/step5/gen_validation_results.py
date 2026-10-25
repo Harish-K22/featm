@@ -463,7 +463,7 @@ def main() -> int:
     gpu_equiv_failures = sum(1 for r in gpu_equiv_rows if r.get("passed") not in ("True", "true", "1"))
     gpu_auto_disagreements = sum(1 for r in gpu_auto_rows if r.get("agrees_with_threshold") not in ("True", "true", "1"))
 
-    stateful_features_expected = 7
+    stateful_features_expected = 7  # frozen Step-5 historical benchmark inventory (v0.5.7); current registry has 8
     stateful_features_covered = len({r["feature"] for r in stateful_rows if r.get("status") == "ok"})
 
     controlled_ok = sum(1 for r in controlled_rows if r.get("status") == "ok")
@@ -473,7 +473,7 @@ def main() -> int:
         "registry_inventory": {
             "source": "featm.REGISTRY", "checks_run": 5, "artifact": "step5_feature_catalog.csv",
             "failures": int(len(featm.REGISTRY.all()) != 552) + int(len(featm.list_modalities()) != 18)
-                        + int(sum(bool(s.stateful) for s in featm.REGISTRY.all()) != 7)
+                        + int(sum(bool(s.stateful) for s in featm.REGISTRY.all()) != 8)
                         + int(sum(bool(s.gpu_available) for s in featm.REGISTRY.all()) != 22)
                         + int(len(catalog) != 552),
         },

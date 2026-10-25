@@ -37,6 +37,32 @@ from typing import Any
 CHECKPOINT_MANIFEST_VERSION = 3
 MANIFEST_FILENAME = "checkpoint.json"
 
+# Feature-specific result-semantics revisions.  A version string alone is not
+# sufficient to protect pre-release checkpoints created with the same version,
+# and a global schema bump would unnecessarily invalidate unrelated runs.
+# Add a revision only when committed results of a selected feature become
+# incompatible; do not treat documentation/metadata changes as such a bump.
+_CHECKPOINT_FEATURE_SEMANTIC_REVISIONS = {
+    "tabular.missingness.entropy": "whole-column-stateful-v1",
+}
+
+
+def checkpoint_feature_semantic_revisions(features: list[str]) -> dict[str, str]:
+    """Return revisions for selected features whose checkpoint values changed."""
+    return {
+        feature: _CHECKPOINT_FEATURE_SEMANTIC_REVISIONS[feature]
+        for feature in sorted(set(features))
+        if feature in _CHECKPOINT_FEATURE_SEMANTIC_REVISIONS
+    }
+
+
+def _attach_feature_semantic_revisions(identity: dict[str, Any], features: list[str]) -> dict[str, Any]:
+    """Leave unaffected legacy identities byte-for-byte compatible."""
+    revisions = checkpoint_feature_semantic_revisions(features)
+    if revisions:
+        identity["feature_semantic_revisions"] = revisions
+    return identity
+
 
 class CheckpointIncompatibleError(RuntimeError):
     """Raised when an existing checkpoint does not match the requested run."""
@@ -54,7 +80,7 @@ class CheckpointIdentity:
     settings: dict[str, Any]
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        identity = {
             "featm_version": self.featm_version,
             "source_fingerprint": self.source_fingerprint,
             "schema_fingerprint": self.schema_fingerprint,
@@ -62,6 +88,7 @@ class CheckpointIdentity:
             "params": self.params,
             "settings": self.settings,
         }
+        return _attach_feature_semantic_revisions(identity, self.features)
 
 
 def _atomic_write_json(path: Path, payload: dict) -> None:
